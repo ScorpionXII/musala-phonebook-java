@@ -33,7 +33,7 @@ public class Main {
         System.out.println("0- Exit");
     }
 
-    public static int actionHandler() {
+    private static int actionHandler() {
         int action = Integer.parseInt(scanner.nextLine());
 
         switch (action) {
@@ -49,12 +49,12 @@ public class Main {
         return action;
     }
 
-    public static void list() {
+    private static void list() {
         for (Map.Entry<String, String> entry : phoneBook.getStored().entrySet())
             System.out.println(entry.getKey() + " => " + entry.getValue());
     }
 
-    public static void add() {
+    private static void add() {
         System.out.print("Enter Name: ");
         String name = scanner.nextLine();
         System.out.print("Enter Number: ");
@@ -62,7 +62,7 @@ public class Main {
         phoneBook.addEntry(name, phone);
     }
 
-    public static void remove() {
+    private static void remove() {
         System.out.print("Enter Name: ");
         String name = scanner.nextLine();
         phoneBook.removeEntry(name);
