@@ -3,36 +3,68 @@ package com.musala;
 import com.musala.classes.PhoneBook;
 
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.Scanner;
 
 public class Main {
+    static Scanner scanner = new Scanner(System.in);
+    static PhoneBook phoneBook;
 
     public static void main(String[] args) {
-	// write your code here
+        phoneBook = new PhoneBook();
 
-        TreeMap<String, String> maptest = new TreeMap<String, String>();
-
-        maptest.put("Heriberto", "123456");
-        maptest.put("Carlos", "9862515");
-        maptest.put("Heriberto Angel", "4522452");
-
-        for (Map.Entry<String, String> entry : maptest.entrySet()) {
-            System.out.println(entry.getKey() + " => " + entry.getValue());
-        }
-
-        PhoneBook pb = new PhoneBook();
         try {
-            pb.load("./resources/textInput.txt");
+            phoneBook.load("./resources/textInput.txt");
         } catch (Exception e) {
-            System.out.print(e.toString());
+            System.out.println(e.toString());
         }
 
-        System.out.println(pb.formatNumber("00359882000000"));
+        do {
+            printMenu();
+        } while (actionHandler()!=0);
 
-        System.out.println(pb.validateNumber("+359881000000"));
+        System.out.print("Done!");
+    }
 
-        System.out.println(pb.getStored().entrySet().toString());
+    private static void printMenu() {
+        System.out.println("PhoneBook Menu:");
+        System.out.println("1- List PhoneBook");
+        System.out.println("2- Add Entry");
+        System.out.println("3- Remove Entry");
+        System.out.println("0- Exit");
+    }
 
-        System.out.print("Test it!");
+    public static int actionHandler() {
+        int action = Integer.parseInt(scanner.nextLine());
+
+        switch (action) {
+            case 1: list();
+                break;
+
+            case 2: add();
+                break;
+
+            case 3: remove();
+        }
+
+        return action;
+    }
+
+    public static void list() {
+        for (Map.Entry<String, String> entry : phoneBook.getStored().entrySet())
+            System.out.println(entry.getKey() + " => " + entry.getValue());
+    }
+
+    public static void add() {
+        System.out.print("Enter Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Number: ");
+        String phone = scanner.nextLine();
+        phoneBook.addEntry(name, phone);
+    }
+
+    public static void remove() {
+        System.out.print("Enter Name: ");
+        String name = scanner.nextLine();
+        phoneBook.removeEntry(name);
     }
 }

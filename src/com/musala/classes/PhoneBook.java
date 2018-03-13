@@ -3,12 +3,10 @@ package com.musala.classes;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.TreeMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class PhoneBook {
 
-    // Defines Number Format for this PhoneBook
+    // Defines Phone Numbers format for this PhoneBook
     private String phoneFormat = "^((0){1,2}|(\\+))(359){1}((87)|(88)|(89)){1}[2-9]{1}[0-9]{6}$";
 
     private TreeMap<String, String> store;
@@ -23,25 +21,30 @@ public class PhoneBook {
 
         while ((pairLine = reader.readLine())!=null) {
             String strArr[] = pairLine.split(",");
-            if (validateNumber(strArr[1])) {
-                this.store.put(strArr[0], formatNumber(strArr[1]));
+            if (validatePhone(strArr[1])) {
+                this.store.put(strArr[0], formatPhone(strArr[1]));
             }
             else
-                System.out.println("An Invalid Phone Number had been skipped");
+                System.out.println("An Invalid Phone Number had been skipped!");
         }
     }
 
     public void addEntry(String name, String phone) {
-        this.store.put(name, phone);
+        if (validatePhone(phone))
+            this.store.put(name, formatPhone(phone));
+        else
+            System.out.println("You entered wrong format Phone!");
     }
 
     public void removeEntry(String name) {
         if (store.containsKey(name)) {
             store.remove(name);
         }
+        else
+            System.out.println("Entry not found!");
     }
 
-    public String getNumber(String name) {
+    public String getPhone(String name) {
         return store.containsKey(name)?store.get(name):null;
     }
 
@@ -49,17 +52,17 @@ public class PhoneBook {
         return store;
     }
 
-    public String formatNumber(String number) {
-        if (validateNumber(number))
-            if (number.charAt(0)!='+')
-                return (number.charAt(1) == '0')?"+" + number.substring(2):"+" + number.substring(1);
+    public String formatPhone(String phone) {
+        if (validatePhone(phone))
+            if (phone.charAt(0)!='+')
+                return (phone.charAt(1) == '0')?"+" + phone.substring(2):"+" + phone.substring(1);
             else
-                return number;
+                return phone;
 
         return null;
     }
 
-    public boolean validateNumber(String number) {
-        return number.matches(phoneFormat);
+    public boolean validatePhone(String phone) {
+        return phone.matches(phoneFormat);
     }
 }
