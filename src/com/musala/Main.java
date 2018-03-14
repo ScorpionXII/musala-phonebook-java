@@ -64,27 +64,34 @@ public class Main {
     }
 
     private static void add() {
-        System.out.print("Enter Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter Number: ");
-        String phone = scanner.nextLine();
-        phoneBook.addEntry(name, phone);
+        phoneBook.addEntry(readName(), readPhone());
     }
 
     private static void remove() {
-        System.out.print("Enter Name: ");
-        String name = scanner.nextLine();
-        phoneBook.removeEntry(name);
+        phoneBook.removeEntry(readName());
     }
 
     private static void call() {
-        System.out.print("Enter Name: ");
-        String name = scanner.nextLine();
-        phoneBook.makeCall(name);
+        phoneBook.makeCall(readName());
     }
 
     private static void top5() {
-        for (PhoneBookEntry entry : phoneBook.getTop5())
-            System.out.println(entry.getName() + " => " + entry.getPhone() + "," + entry.getCalls());
+        if (phoneBook.getTop5().size()>0)
+            for (PhoneBookEntry entry : phoneBook.getTop5())
+                System.out.println(entry.getName() + " => " + entry.getPhone() + "," + entry.getCalls());
+        else
+            System.out.println("Your calls list is empty!");
+    }
+
+    private static String readName() {
+        System.out.print("Enter Name: ");
+        String name = scanner.nextLine();
+        return name;
+    }
+
+    private static String readPhone() {
+        System.out.print("Enter Phone: ");
+        String phone = scanner.nextLine();
+        return phone;
     }
 }
