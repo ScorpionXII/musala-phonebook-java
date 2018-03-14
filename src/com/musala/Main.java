@@ -1,8 +1,8 @@
 package com.musala;
 
 import com.musala.classes.PhoneBook;
+import com.musala.classes.PhoneBookEntry;
 
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -30,6 +30,8 @@ public class Main {
         System.out.println("1- List PhoneBook");
         System.out.println("2- Add Entry");
         System.out.println("3- Remove Entry");
+        System.out.println("4- Make Call");
+        System.out.println("5- List by Calls");
         System.out.println("0- Exit");
     }
 
@@ -44,14 +46,21 @@ public class Main {
                 break;
 
             case 3: remove();
+                break;
+
+            case 4: call();
+                break;
+
+            case 5: top5();
+                break;
         }
 
         return action;
     }
 
     private static void list() {
-        for (Map.Entry<String, String> entry : phoneBook.getStored().entrySet())
-            System.out.println(entry.getKey() + " => " + entry.getValue());
+        for (PhoneBookEntry entry : phoneBook.getStored())
+            System.out.println(entry.getName() + " => " + entry.getPhone() + ", " + entry.getCalls());
     }
 
     private static void add() {
@@ -66,5 +75,16 @@ public class Main {
         System.out.print("Enter Name: ");
         String name = scanner.nextLine();
         phoneBook.removeEntry(name);
+    }
+
+    private static void call() {
+        System.out.print("Enter Name: ");
+        String name = scanner.nextLine();
+        phoneBook.makeCall(name);
+    }
+
+    private static void top5() {
+        for (PhoneBookEntry entry : phoneBook.getTop5())
+            System.out.println(entry.getName() + " => " + entry.getPhone() + "," + entry.getCalls());
     }
 }
