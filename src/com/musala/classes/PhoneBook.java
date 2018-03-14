@@ -3,6 +3,7 @@ package com.musala.classes;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class PhoneBook {
@@ -78,7 +79,7 @@ public class PhoneBook {
     }
 
     private void sortByName() {
-        store.sort((PhoneBookEntry entryA, PhoneBookEntry entryB) -> entryA.getName().compareTo(entryB.getName()));
+        store.sort(Comparator.comparing(PhoneBookEntry::getName));
     }
 
     private void updateTop5(PhoneBookEntry entry) {
