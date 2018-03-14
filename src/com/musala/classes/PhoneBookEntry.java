@@ -10,6 +10,7 @@ public class PhoneBookEntry {
         this.phone = phone;
     }
 
+    // Different signature constructor to include calls
     public PhoneBookEntry(String name, String phone, int calls) {
         this(name, phone);
         this.calls = calls;
