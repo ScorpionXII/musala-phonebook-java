@@ -48,7 +48,7 @@ public class PhoneBook {
         return null;
     }
 
-    public String formatPhone(String phone) {
+    private String formatPhone(String phone) {
         if (validatePhone(phone))
             if (phone.charAt(0) != '+')
                 return (phone.charAt(1) == '0') ? "+" + phone.substring(2) : "+" + phone.substring(1);
@@ -58,7 +58,7 @@ public class PhoneBook {
         return null;
     }
 
-    public boolean validatePhone(String phone) {
+    private boolean validatePhone(String phone) {
         return phone.matches(phoneFormat);
     }
 
